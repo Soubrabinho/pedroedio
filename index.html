@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Meu Amor</title>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --glass-blur: blur(12px);
+            --primary-color: #d32f2f;
+            --secondary-color: #c2185b;
+            --accent-color: #880e4f;
+            --text-on-glass: rgba(173, 20, 87, 0.9);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('ultrassom.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--primary-color);
+            text-align: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        /* Frosted Glass Effect for Containers */
+        .glass-container {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-container:hover {
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        video {
+            width: 100%;
+            display: block;
+        }
+        
+        .placeholder {
+            background: linear-gradient(135deg, rgba(248, 187, 208, 0.7) 0%, rgba(194, 24, 91, 0.3) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .counter {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .counter h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .time-units {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .time-unit {
+            background: rgba(248, 187, 208, 0.4);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 12px;
+            padding: 15px;
+            min-width: 80px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .time-unit:hover {
+            transform: translateY(-5px);
+        }
+        
+        .time-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .time-label {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-top: 5px;
+        }
+        
+        .message {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            line-height: 1.6;
+        }
+        
+        .message h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message p {
+            color: var(--text-on-glass);
+            font-size: 1.1rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Elementos decorativos */
+        .decorative-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.15;
+        }
+        
+        /* Animações para os elementos decorativos */
+        .guitar {
+            animation: sway 8s ease-in-out infinite;
+        }
+        
+        .ballerina {
+            animation: dance 10s ease-in-out infinite;
+        }
+        
+        .whale {
+            animation: swim 15s ease-in-out infinite;
+        }
+        
+        .notebook {
+            animation: pulse 6s ease-in-out infinite;
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        @keyframes dance {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes swim {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4081;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff4081;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: rotate(45deg) translateY(0) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg) translateY(-100vh) scale(0.2);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .time-units {
+                gap: 10px;
+            }
+            
+            .time-unit {
+                min-width: 60px;
+                padding: 8px 10px;
+            }
+            
+            .time-value {
+                font-size: 1.5rem;
+            }
+            
+            .glass-container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            .message p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Additional responsive improvements for all screen sizes */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Ensure all content is centered properly */
+        .glass-container, .counter, .message, .video-container {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nosso Amor</h1>
+        
+        <div class="video-container glass-container">
+            <video autoplay loop muted playsinline controls>
+                <source src="agora.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos HTML5.
+            </video>
+        </div>
+        
+        <div class="counter glass-container">
+            <h2>Estamos juntos há</h2>
+            <div class="time-units">
+                <div class="time-unit">
+                    <div class="time-value" id="years">0</div>
+                    <div class="time-label">Anos</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="months">0</div>
+                    <div class="time-label">Meses</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="days">0</div>
+                    <div class="time-label">Dias</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">0</div>
+                    <div class="time-label">Horas</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">0</div>
+                    <div class="time-label">Minutos</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">0</div>
+                    <div class="time-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="message glass-container">
+            <h2>Meu Amor Por Você</h2>
+            <p>
+                Cada segundo ao seu lado é um presente que guardo com carinho no meu coração. 
+                Desde aquele primeiro domingo de janeiro, minha vida se transformou de maneiras que 
+                eu jamais poderia imaginar. Você trouxe luz, alegria e um amor tão profundo que 
+                às vezes me pego sorrindo sem motivo, apenas por lembrar que você existe e que 
+                tenho a sorte de ter você ao meu lado.
+            </p>
+            <p>
+                Admiro sua paixão pela biologia e como seus olhos brilham quando você fala sobre as 
+                maravilhas do mundo natural. Seu conhecimento sobre as baleias e como você se encanta 
+                com esses magníficos seres marinhos me faz ver o mundo através de uma perspectiva mais 
+                rica e fascinante. Como as baleias que navegam pelos oceanos com graça e majestade, 
+                você também se move pelo mundo com uma elegância única.
+            </p>
+            <p>
+                Ver você dançar é testemunhar pura magia. A forma como você se expressa através da dança, 
+                com cada movimento fluido e cheio de emoção, me deixa sem palavras. Sua dedicação como 
+                bailarina mostra não apenas seu talento extraordinário, mas também sua disciplina e paixão 
+                por tudo que faz. Você transforma o palco em um lugar sagrado, assim como transformou 
+                minha vida em algo extraordinário.
+            </p>
+            <p>
+                Obrigado por cada momento compartilhado, cada risada, cada lágrima, cada 
+                abraço e cada beijo. Obrigado por me aceitar como sou e por me inspirar a ser 
+                uma pessoa melhor a cada dia. Meu amor por você cresce a cada segundo que passa, 
+                e prometo te amar e te valorizar por todos os dias da minha vida.
+            </p>
+            <p>
+                Te amo mais do que palavras podem expressar, mais do que números podem contar, 
+                mais do que o tempo pode medir, mais profundo que o oceano onde nadam suas amadas baleias. 
+                Você é e sempre será o amor da minha vida.
+            </p>
+        </div>
+    </div>
+    
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="decorative-elements">
+        <!-- Violão (Guitar) -->
+        <svg class="guitar" viewBox="0 0 100 200" width="80" height="160" style="position: absolute; bottom: 10%; left: 5%">
+            <path d="M40,10 C40,10 60,10 60,10 C60,10 65,40 65,40 C65,40 70,50 60,55 C60,55 55,60 55,60 C55,60 60,70 60,80 C60,90 50,130 50,140 C50,150 40,170 30,170 C20,170 10,160 10,140 C10,120 20,110 30,100 C40,90 45,80 45,70 C45,60 40,55 40,55 C40,55 35,50 35,40 C35,40 40,10 40,10 Z" fill="#8D6E63"/>
+            <ellipse cx="40" cy="150" rx="20" ry="30" fill="#A1887F"/>
+            <ellipse cx="40" cy="150" rx="10" ry="15" fill="#5D4037"/>
+            <line x1="40" y1="70" x2="40" y2="130" stroke="#5D4037" stroke-width="1"/>
+            <line x1="35" y1="80" x2="35" y2="120" stroke="#5D4037" stroke-width="1"/>
+            <line x1="45" y1="80" x2="45" y2="120" stroke="#5D4037" stroke-width="1"/>
+        </svg>
+        
+        <!-- Bailarina (Ballerina) -->
+        <svg class="ballerina" viewBox="0 0 100 200" width="100" height="200" style="position: absolute; bottom: 5%; right: 10%">
+            <path d="M50,30 C55,30 60,35 60,40 C60,45 55,50 50,50 C45,50 40,45 40,40 C40,35 45,30 50,30 Z" fill="#FFCDD2"/>
+            <path d="M50,50 L50,90 M40,60 L60,60 M45,90 C45,110 30,130 30,150 C30,160 35,170 45,170 M55,90 C55,110 70,130 70,150 C70,160 65,170 55,170" stroke="#F48FB1" stroke-width="3" fill="none"/>
+            <path d="M30,150 C30,180 70,180 70,150" stroke="#F48FB1" stroke-width="3" fill="none"/>
+            <ellipse cx="45" cy="170" rx="5" ry="2" fill="#F48FB1"/>
+            <ellipse cx="55" cy="170" rx="5" ry="2" fill="#F48FB1"/>
+        </svg>
+        
+        <!-- Baleia (Whale) -->
+        <svg class="whale" viewBox="0 0 200 100" width="160" height="80" style="position: absolute; top: 15%; left: 15%">
+            <path d="M20,50 C20,20 60,20 100,20 C140,20 180,30 180,50 C180,70 140,80 100,80 C60,80 20,80 20,50 Z" fill="#0277BD"/>
+            <path d="M180,50 L190,30" stroke="#0277BD" stroke-width="5"/>
+            <circle cx="40" cy="40" r="5" fill="#E1F5FE"/>
+            <path d="M100,20 C100,20 100,0 120,10" fill="#0277BD"/>
+        </svg>
+        
+        <!-- Notebook -->
+        <svg class="notebook" viewBox="0 0 100 80" width="100" height="80" style="position: absolute; top: 25%; right: 15%">
+            <rect x="10" y="10" width="80" height="60" rx="2" ry="2" fill="#E0E0E0"/>
+            <rect x="15" y="15" width="70" height="40" fill="#BDBDBD"/>
+            <rect x="15" y="15" width="70" height="40" fill="#2196F3" opacity="0.7"/>
+            <rect x="40" y="55" width="20" height="5" fill="#9E9E9E"/>
+        </svg>
+    </div>
+    
+    <!-- Script externo para controlar o contador e animações -->
+    <script src="script.js"></script>
+</body>
+</html>
