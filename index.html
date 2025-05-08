@@ -20,13 +20,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('ultrassom.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             color: var(--primary-color);
             text-align: center;
-            background-attachment: fixed;
             min-height: 100vh;
         }
         
@@ -256,6 +251,8 @@
             left: -10px;
         }
         
+        /* Estilos para animações removidos */
+        
         @keyframes float {
             0% {
                 transform: rotate(45deg) translateY(0) scale(0.8);
@@ -402,6 +399,36 @@
         </div>
     </div>
     
+    <div class="pregnancy-counter glass-container">
+        <h2>Nossa Gravidez</h2>
+        <p>Primeiro encontro: <span id="first-meet-date">05/01/2025</span></p>
+        <p>Início da gravidez: <span id="pregnancy-start-date">19/02/2025</span></p>
+        <p>Data prevista de nascimento: <span id="due-date">00/00/0000</span></p>
+        <h3>Tempo de Gravidez</h3>
+        <div class="time-units">
+            <div class="time-unit">
+                <div class="time-value" id="pregnancy-weeks">0</div>
+                <div class="time-label">Semanas</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="pregnancy-days">0</div>
+                <div class="time-label">Dias</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="pregnancy-hours">0</div>
+                <div class="time-label">Horas</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="pregnancy-minutes">0</div>
+                <div class="time-label">Minutos</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="pregnancy-seconds">0</div>
+                <div class="time-label">Segundos</div>
+            </div>
+        </div>
+    </div>
+    
     <div class="hearts" id="hearts"></div>
     
     <div class="decorative-elements">
@@ -441,7 +468,9 @@
         </svg>
     </div>
     
-    <!-- Script externo para controlar o contador e animações -->
+    <!-- Scripts externos para controlar os contadores e animações -->
     <script src="script.js"></script>
+    <script src="pregnancy.js"></script>
+    <script src="carousel.js"></script>
 </body>
 </html>
